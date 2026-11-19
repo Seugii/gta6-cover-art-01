@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast Cover Studio — GTA 6-style cover maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+  <section class="controls" aria-label="Cover controls">
+    <h1>Neon Coast <span>Cover Studio</span></h1>
+    <p class="tag">Your photos into multi-panel GTA-style cover art. Offline — nothing leaves this machine.</p>
+
+    <div class="group">
+      <label class="lbl">Photos <span class="hint">click a panel below, then pick its photo</span></label>
+      <div class="row">
+        <label class="filebtn">+ Add photos <input id="photos" type="file" accept="image/*" multiple hidden></label>
+        <button id="sampleBtn" type="button" class="ghost">Use samples</button>
+      </div>
+      <div id="thumbs" class="thumbs" aria-label="Photos"></div>
+    </div>
+
+    <div class="group">
+      <label class="lbl" for="layout">Layout</label>
+      <div id="layouts" class="chips" role="group" aria-label="Layout"></div>
+    </div>
+
+    <div class="group">
+      <label class="lbl" for="grade">Grade</label>
+      <div id="grades" class="chips" role="group" aria-label="Grade"></div>
+    </div>
+
+    <div class="group">
+      <label class="lbl" for="title">Title</label>
+      <input id="title" type="text" maxlength="28" value="NEON COAST">
+      <label class="lbl" for="subtitle">Subtitle <span class="hint">neon script</span></label>
+      <input id="subtitle" type="text" maxlength="40" value="Vice City nights">
+    </div>
+
+    <div class="group">
+      <label class="lbl">Selected panel <span id="selName" class="hint">panel 1</span></label>
+      <div class="row">
+        <label class="slider">Zoom <input id="zoom" type="range" min="1" max="3" step="0.05" value="1"></label>
+        <button id="resetPanel" type="button" class="ghost">Reset panel</button>
+      </div>
+      <p class="hint">Drag on the cover to move the photo inside the selected panel. Scroll to zoom. Click a panel to select it.</p>
+    </div>
+
+    <div class="group">
+      <label class="lbl" for="size">Export size</label>
+      <select id="size">
+        <option value="square">Square — 1080 x 1080</option>
+        <option value="portrait">Portrait — 1080 x 1350</option>
+        <option value="wide">Wide — 1920 x 1080</option>
+        <option value="story">Story — 1080 x 1920</option>
+      </select>
+      <div class="row">
+        <button id="export" type="button" class="primary">Export PNG</button>
+        <button id="exportAll" type="button">Export all sizes</button>
+      </div>
+      <div class="row">
+        <button id="undo" type="button" class="ghost" disabled>Undo</button>
+        <button id="redo" type="button" class="ghost" disabled>Redo</button>
+      </div>
+      <p id="status" role="status"></p>
+    </div>
+  </section>
+
+  <section class="stage" aria-label="Cover preview">
+    <canvas id="cover" width="640" height="640" aria-label="The cover"></canvas>
+    <p class="stagehint">Click a panel to select it · drag to move its photo · scroll to zoom</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
