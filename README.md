@@ -27,7 +27,7 @@ Or open `app/index.html` directly in a desktop browser. No build step, no depend
 
 ## How it is entered
 
-`main.ts` (Node 22) copies `app/` and `screenshots/` to `/output` and writes `/output/dossier.json` with the vendored `vendor/makefun-app.ts`.
+`main.ts` (Node 22) copies `app/` and `screenshots/` to `/output` and writes `/output/dossier.json` with the vendored `vendor/makefun-app.ts`. It also takes `--out <dir>` to choose the output directory, plus `--help` and `--version`.
 
 ## License
 

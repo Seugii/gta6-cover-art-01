@@ -16,10 +16,33 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-app.ts';
 
+// Neon Coast Cover Studio — entrypoint options, authored for this entry.
+//   node main.ts                 build to $MAKEFUN_OUTPUT_DIR (default /output)
+//   node main.ts --out <dir>     build to <dir> instead of the env default
+//   node main.ts --help          print usage and exit
+//   node main.ts --version       print the app name and version and exit
+const APP_NAME = 'Neon Coast Cover Studio';
+const APP_VERSION = '1.0.0';
+
+const argv = process.argv.slice(2);
+if (argv.includes('--help') || argv.includes('-h')) {
+  console.log(
+    `Usage: node main.ts [--out <dir>] [--help] [--version]\n\nBuilds ${APP_NAME} v${APP_VERSION} into the output directory\n(default $MAKEFUN_OUTPUT_DIR, or /output): copies app/ and\nscreenshots/ and writes dossier.json for the judge.`,
+  );
+  process.exit(0);
+}
+if (argv.includes('--version') || argv.includes('-v')) {
+  console.log(`${APP_NAME} v${APP_VERSION}`);
+  process.exit(0);
+}
+const outFlag = argv.indexOf('--out');
+const outOverride = outFlag >= 0 && argv[outFlag + 1] ? argv[outFlag + 1] : undefined;
+
 const here = fileURLToPath(new URL('.', import.meta.url));
-const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const out = outOverride ?? process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 mkdirSync(out, { recursive: true });
+console.log(`Building ${APP_NAME} v${APP_VERSION} -> ${out}`);
 cpSync(join(here, 'app'), join(out, 'app'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
 if (existsSync(join(here, 'screenshots'))) cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
